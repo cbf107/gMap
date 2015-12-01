@@ -4,15 +4,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link media="screen" rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="lib/bootstrap/js/jquery-1.11.3.min.js" />
-    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" async defer src="http://ditu.google.cn/maps/api/js?v=3&key=AIzaSyA4qSVZhJS4F-hPDu2J6Fm0kz-mqCQzmRs &callback=initMap">
-    </script>
+    
+    <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    
     <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }
-     
+      html, body { height: 100%; margin: 0; padding: 0; }     
     </style>
+
     <script language="javascript" type="text/javascript">
         var Map;
         var zoomLevel = 3;
@@ -52,7 +52,6 @@
                         //单击mark点后加载视频（这里用updatepanel触发页面隐藏按钮BtnLoadVedio，服务端刷新展示面板中的视频连接)
                         marker.addListener('click',
                              function () {
-                                 //alert(this.refId);
                                  $("#txtRefId").val(this.refId);
                                  document.getElementById("BtnLoadVedio").click();
                              }
@@ -232,6 +231,7 @@
         </div>
     </div>
     <!--添加视频面板end-->
+
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -255,9 +255,10 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     </form>
+
     <div id="contextMenu" style="width: 130px; left: 0; top: 0; position: absolute; z-index: 1000;
         background-color: #fff;">
-<%--        <table class="table table-bordered">
+        <table class="table table-bordered">
             <tr>
                 <td>
                     <span class="icon-film"></span><a style="cursor: pointer; padding-left: 10px;" onclick="showIPanel();">
@@ -270,9 +271,11 @@
                         onclick="showIPanel();">插入直播标记</a>
                 </td>
             </tr>
-        </table>--%>
+        </table>
     </div>
-    <div id="Info" style="z-index: 1000;">
-    </div>
+
+ 
 </body>
 </html>
+<script type="text/javascript" async defer src="http://ditu.google.cn/maps/api/js?v=3&key=AIzaSyA4qSVZhJS4F-hPDu2J6Fm0kz-mqCQzmRs &callback=initMap">
+</script>
