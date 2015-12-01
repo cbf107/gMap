@@ -27,6 +27,15 @@ namespace gMapMark.gMapMark.Presistent.Base
             return dbDataObjectProvider.Query<MarkEntity>(DataProvider.InvokeType.SQL);
         }
 
+
+        public List<MarkEntity> GetTopListByCreateDate(int num) {
+            dbDataObjectProvider.SqlStr = "Select top "+num.ToString()+" * From " + TableName + " order by createDate";
+
+            dbDataObjectProvider.Params.Clear();
+            dbDataObjectProvider.InitParams();
+
+            return dbDataObjectProvider.Query<MarkEntity>(DataProvider.InvokeType.SQL);
+        }
        
     }
 }

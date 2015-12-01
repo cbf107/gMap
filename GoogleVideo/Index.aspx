@@ -1,27 +1,38 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="GoogleVideo.Default" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="GoogleVideo.Index" %>
+
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head id="Head1" runat="server">
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
     
+    
+    <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q">
+    </script>
+
     <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }     
     </style>
 
     <script language="javascript" type="text/javascript">
         var Map;
-        var zoomLevel = 3;
+        var zoomLevel = 5;
         var mLatLng;
         var markers = [];
-        var contextMenuObj;
 
         //显示录入视频面板
-        function showIPanel() {
+        function showIPanel(p) {
+
+            $("#txtLongitude").val(p.lng);
+            $("#txtLatitude").val(p.lat);
+            $("#txtZoomLevel").val(zoomLevel);
+            $("#coordinateInfo").html("<b>经度：</b>" + p.lng + "<br/>" + "<b>纬度：</b>" + p.lat + "<br/>")
+
             $('#myModal').modal("show");
         }
 
@@ -31,13 +42,13 @@
 
 
             //清除地图上的现有点
-            setMapOnAll(null);
+            clearMarkers();
             markers = [];
 
             if (zLevel != -1) {
                 zoomLevel = zLevel;
             }
-
+          
             //后台读取需要加载点（后台当前访问数据库，后期要处理为缓存模式）
             $.get("gMapMarker/MarkList.aspx?zoomLevel=" + zoomLevel,
                 function (data, status) {
@@ -45,23 +56,19 @@
 
                     for (var i = 0; i < objlist.length; i++) {
 
-                        mLatLng = { lat: objlist[i].Latitude, lng: objlist[i].Longitude };
-
-                        var marker = new google.maps.Marker({
-                            refId: objlist[i].RefId,
-                            position: mLatLng,
-                            map: Map,
-                            title: objlist[i].MarkName
-                        });
-
+                        mLatLng = new BMap.Point(objlist[i].Longitude, objlist[i].Latitude);
+                        var marker = new BMap.Marker(mLatLng, {title: objlist[i].MarkName });
+                        marker.refId=objlist[i].RefId,
                         //单击mark点后加载视频（这里用updatepanel触发页面隐藏按钮BtnLoadVedio，服务端刷新展示面板中的视频连接)
-                        marker.addListener('click',
-                             function () {
-                                 $("#txtRefId").val(this.refId);
-                                 document.getElementById("BtnLoadVedio").click();
-                             }
+
+                        marker.addEventListener('click',
+                            function (e) {                                
+                                $("#txtRefId").val(e.target.refId);
+                                document.getElementById("BtnLoadVedio").click();                                
+                            }
                         );
 
+                        Map.addOverlay(marker);
                         //zoomLevel变化后用于清除
                         markers.push(marker);
                     } //for
@@ -69,87 +76,43 @@
             );
         }
 
-        function setMapOnAll(map) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
-            }
-        }
-
-        // Removes the markers from the map, but keeps them in the array.
         function clearMarkers() {
-            setMapOnAll(null);
+            for (var i = 0; i < markers.length; i++) {
+                Map.removeOverlay(markers[i]); 
+              
+            }
         }
      
     </script>
     <script type="text/javascript" language="javascript">
- 
+        
         //初始加载地图
         function initMap() {
-            //右键菜单隐藏
-            contextMenuObj.hide();
+      
 
             //这里将来替换成后台读取（可配置在字典中）
             //中心点
-            var tw = new google.maps.LatLng(35.60371874069731, 104.0625)
-            var myLatLng = { lat: 35.60371874069731, lng: 104.0625 };
+            Map = new BMap.Map("map");          // 创建地图实例  
+            var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
 
-            Map = new google.maps.Map(document.getElementById('map'), {
-                zoom: zoomLevel,
-                center: myLatLng
-            });
+            Map.centerAndZoom(point, 5);       // 初始化地图，设置中心点坐标和地图级别  
+            
 
+            var contextMenu = new BMap.ContextMenu();
+            contextMenu.addItem(new BMap.MenuItem("<span class='icon-film'></span>&nbsp;&nbsp;插入视频", showIPanel, 150));
+            contextMenu.addItem(new BMap.MenuItem("<span class='icon-facetime-video'></span>&nbsp;&nbsp;插入直播", showIPanel, 150));
+            Map.addContextMenu(contextMenu);
+      
             //加载点
             RefreshMap(zoomLevel);
 
 
             //地图显示等级变换后触发事件
-            google.maps.event.addListener(Map, 'zoom_changed', function () {
-                //隐藏右键菜单
-                contextMenuObj.hide();
-
+            Map.addEventListener('zoomend', function () {
                 zoomLevel = Map.getZoom();
-
-                //设置中心点（这里待完善）
-                Map.setCenter(tw);
-
-                //alert('缩放级别: ' + zoomLevel);                
-
+               
                 RefreshMap(zoomLevel);
             });
-
-            //地图单击事件
-            google.maps.event.addListener(Map, 'click', function () {
-                contextMenuObj.hide();
-            });
-
-            //地图右键菜单事件
-            google.maps.event.addListener(Map, 'rightclick', function (event) {
-                var mapDiv = $(Map.getDiv()),
-                x = event.pixel.x,
-                y = event.pixel.y;
-
-                // save the clicked location
-                clickedLatLng = event.latLng;
-
-                $("#contextMenu").css({ left: x, top: y });
-
-                $("#txtLongitude").val(event.latLng.lng());
-                $("#txtLatitude").val(event.latLng.lat());
-                $("#txtZoomLevel").val(zoomLevel);
-                $("#coordinateInfo").html("<b>经度：</b>" + event.latLng.lng() + "<br/>" + "<b>纬度：</b>" + event.latLng.lat() + "<br/>")
-                
-                contextMenuObj.show();
-
-                //
-                /*
-                if (confirm("插入视频?")) {
-                alert(event.latLng);
-                alert(event.latLng.lat());
-                alert(event.latLng.lng());
-                }
-                */
-            });
-
 
         }
     </script>
@@ -272,17 +235,12 @@
     </asp:UpdatePanel>
     </form>
 
-    <div id="contextMenu" style="width:130px;left:0;top:0; position:absolute; z-index:1000; background-color:#fff;">
-        <table class="table table-bordered">
-            <tr><td><span class="icon-film"></span><a style="cursor:pointer;padding-left:10px;" onclick="showIPanel();">插入视频标记</a></td></tr>
-            <tr><td><span class="icon-facetime-video"></span><a style="cursor:pointer;padding-left:10px;" onclick="showIPanel();">插入直播标记</a></td></tr>
-        </table>
-    </div>
+
 
 </body>
 </html>
-<script type="text/javascript" async defer src="http://ditu.google.cn/maps/api/js?v=3&key=AIzaSyA4qSVZhJS4F-hPDu2J6Fm0kz-mqCQzmRs &callback=initMap">
-</script>
+
 <script>
-    contextMenuObj = $('#contextMenu');
+    initMap();
 </script>
+

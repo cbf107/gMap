@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+
 using gMapMark.gMapMark.Presistent.Entities;
 using UMEntities;
 using gMapMark.gMapMark.Presistent;
@@ -11,7 +12,7 @@ using System.Web.UI.HtmlControls;
 
 namespace GoogleVideo
 {
-    public partial class Default : System.Web.UI.Page
+    public partial class Index : System.Web.UI.Page
     {
         UserEntity userEntity { get { return (UserEntity)Session["User"]; } }
         protected void Page_Load(object sender, EventArgs e)
@@ -20,8 +21,9 @@ namespace GoogleVideo
             user.UserID = "Test";
             Session["User"] = user;
 
-            List<MarkEntity> L=StaticFactory.markDB.GetTopListByCreateDate(10);
-            for (int i = 0; i < L.Count; i++) {
+            List<MarkEntity> L = StaticFactory.markDB.GetTopListByCreateDate(10);
+            for (int i = 0; i < L.Count; i++)
+            {
                 HtmlGenericControl div = new HtmlGenericControl("div");
 
                 HtmlGenericControl spanA = new HtmlGenericControl("span");
@@ -29,7 +31,7 @@ namespace GoogleVideo
 
                 HtmlGenericControl spanB = new HtmlGenericControl("span");
                 spanB.Attributes.Add("style", "padding-left:20px;");
-                spanB.InnerText= L[i].MarkName;
+                spanB.InnerText = L[i].MarkName;
 
                 div.Controls.Add(spanA);
                 div.Controls.Add(spanB);
@@ -87,7 +89,7 @@ namespace GoogleVideo
         {
             string RefId = txtRefId.Text;
             StaticFactory.markDB.Delete(new Guid(RefId));
-
+            DoScript("$('#showWindow').modal('hide');");
             DoScript("RefreshMap(-1);");
         }
     }

@@ -26,3 +26,17 @@ G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\bin\GoogleVideo.pdb
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\obj\Debug\GoogleVideo.csprojResolveAssemblyReference.cache
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\obj\Debug\GoogleVideo.dll
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\obj\Debug\GoogleVideo.pdb
+H:\GMap\GMap\GoogleVideo\bin\GoogleVideo.dll
+H:\GMap\GMap\GoogleVideo\bin\GoogleVideo.pdb
+H:\GMap\GMap\GoogleVideo\bin\BaseProvider.dll
+H:\GMap\GMap\GoogleVideo\bin\BaseWebAppication.dll
+H:\GMap\GMap\GoogleVideo\bin\ConfigNar.dll
+H:\GMap\GMap\GoogleVideo\bin\DataProvider.dll
+H:\GMap\GMap\GoogleVideo\bin\EmailManager.dll
+H:\GMap\GMap\GoogleVideo\bin\Entities.dll
+H:\GMap\GMap\GoogleVideo\bin\Log.dll
+H:\GMap\GMap\GoogleVideo\bin\SqlBuilder.dll
+H:\GMap\GMap\GoogleVideo\bin\UMEntities.dll
+H:\GMap\GMap\GoogleVideo\obj\Debug\GoogleVideo.csprojResolveAssemblyReference.cache
+H:\GMap\GMap\GoogleVideo\obj\Debug\GoogleVideo.dll
+H:\GMap\GMap\GoogleVideo\obj\Debug\GoogleVideo.pdb

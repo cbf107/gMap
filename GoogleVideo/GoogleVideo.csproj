@@ -83,6 +83,7 @@
     <Content Include="gMapMarker\MarkList.aspx" />
     <Content Include="Img\Logo.png" />
     <Content Include="Img\search.png" />
+    <Content Include="Index.aspx" />
     <Content Include="lib\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="lib\bootstrap\css\bootstrap-responsive.min.css" />
     <Content Include="lib\bootstrap\css\bootstrap.css" />
@@ -136,6 +137,13 @@
     <Compile Include="gMapMarker\Presistent\Entities\MarkEntity.cs" />
     <Compile Include="gMapMarker\Presistent\PMapDBDataProvider.cs" />
     <Compile Include="gMapMarker\Presistent\StaticFactory.cs" />
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
