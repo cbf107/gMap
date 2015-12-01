@@ -18,7 +18,7 @@
         var zoomLevel = 3;
         var mLatLng;
         var markers = [];
-
+        var contextMenuObj;
         //显示录入视频面板
         function showIPanel() {
             $('#myModal').modal("show");
@@ -77,12 +77,12 @@
      
     </script>
     <script type="text/javascript" language="javascript">
-        var contextMenu = $("#contextMenu");
+ 
 
         //初始加载地图
         function initMap() {
             //右键菜单隐藏
-            contextMenu.hide();
+            contextMenuObj.hide();
 
             //这里将来替换成后台读取（可配置在字典中）
             //中心点
@@ -101,7 +101,7 @@
             //地图显示等级变换后触发事件
             google.maps.event.addListener(Map, 'zoom_changed', function () {
                 //隐藏右键菜单
-                contextMenu.hide();
+                contextMenuObj.hide();
 
                 zoomLevel = Map.getZoom();
 
@@ -115,7 +115,7 @@
 
             //地图单击事件
             google.maps.event.addListener(Map, 'click', function () {
-                contextMenu.hide();
+                contextMenuObj.hide();
             });
 
             //地图右键菜单事件
@@ -133,7 +133,8 @@
                 $("#txtLatitude").val(event.latLng.lat());
                 $("#txtZoomLevel").val(zoomLevel);
                 $("#coordinateInfo").html("<b>经度：</b>" + event.latLng.lng() + "<br/>" + "<b>纬度：</b>" + event.latLng.lat() + "<br/>")
-                contextMenu.show();
+                
+                contextMenuObj.show();
 
                 //
                 /*
@@ -256,26 +257,18 @@
     </asp:UpdatePanel>
     </form>
 
-    <div id="contextMenu" style="width: 130px; left: 0; top: 0; position: absolute; z-index: 1000;
-        background-color: #fff;">
-        <table class="table table-bordered">
-            <tr>
-                <td>
-                    <span class="icon-film"></span><a style="cursor: pointer; padding-left: 10px;" onclick="showIPanel();">
-                        插入视频标记</a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <span class="icon-facetime-video"></span><a style="cursor: pointer; padding-left: 10px;"
-                        onclick="showIPanel();">插入直播标记</a>
-                </td>
-            </tr>
-        </table>
-    </div>
+        <div id="contextMenu" style="width:130px;left:0;top:0; position:absolute; z-index:1000; background-color:#fff;">
+            <table class="table table-bordered">
+                <tr><td><span class="icon-film"></span><a style="cursor:pointer;padding-left:10px;" onclick="showIPanel();">插入视频标记</a></td></tr>
+                <tr><td><span class="icon-facetime-video"></span><a style="cursor:pointer;padding-left:10px;" onclick="showIPanel();">插入直播标记</a></td></tr>
+            </table>
+        </div>
 
  
 </body>
 </html>
 <script type="text/javascript" async defer src="http://ditu.google.cn/maps/api/js?v=3&key=AIzaSyA4qSVZhJS4F-hPDu2J6Fm0kz-mqCQzmRs &callback=initMap">
+</script>
+<script>
+    contextMenuObj = $('#contextMenu'); 
 </script>
