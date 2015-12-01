@@ -32,7 +32,31 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BaseProvider">
+      <HintPath>C:\develop\develop\develop\dllLib\BaseProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="BaseWebAppication">
+      <HintPath>C:\develop\develop\develop\dllLib\BaseWebAppication.dll</HintPath>
+    </Reference>
+    <Reference Include="ConfigNar">
+      <HintPath>C:\develop\develop\develop\dllLib\ConfigNar.dll</HintPath>
+    </Reference>
+    <Reference Include="DataProvider">
+      <HintPath>C:\develop\develop\develop\dllLib\DataProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="EmailManager">
+      <HintPath>C:\develop\develop\develop\dllLib\EmailManager.dll</HintPath>
+    </Reference>
+    <Reference Include="Entities">
+      <HintPath>C:\develop\develop\develop\dllLib\Entities.dll</HintPath>
+    </Reference>
+    <Reference Include="Log">
+      <HintPath>C:\develop\develop\develop\dllLib\Log.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SqlBuilder">
+      <HintPath>C:\develop\develop\develop\dllLib\SqlBuilder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
@@ -48,9 +72,27 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="UMEntities">
+      <HintPath>C:\develop\develop\develop\dllLib\UMEntities.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DataBase\GM.mdb" />
+    <Content Include="DataBase\UMS.mdb" />
+    <Content Include="DataBase\UserMessage.mdb" />
     <Content Include="Default.aspx" />
+    <Content Include="gMapMarker\MapMark.aspx" />
+    <Content Include="gMapMarker\MarkList.aspx" />
+    <Content Include="lib\bootstrap\css\bootstrap-responsive.css" />
+    <Content Include="lib\bootstrap\css\bootstrap-responsive.min.css" />
+    <Content Include="lib\bootstrap\css\bootstrap.css" />
+    <Content Include="lib\bootstrap\css\bootstrap.min.css" />
+    <Content Include="lib\bootstrap\img\glyphicons-halflings-white.png" />
+    <Content Include="lib\bootstrap\img\glyphicons-halflings.png" />
+    <Content Include="lib\bootstrap\js\bootstrap.js" />
+    <Content Include="lib\bootstrap\js\bootstrap.min.js" />
+    <Content Include="lib\bootstrap\js\jquery-1.11.3.min.js" />
+    <Content Include="lib\bootstrap\js\jquery.min.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
@@ -75,6 +117,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="gMapMarker\MapMark.aspx.cs">
+      <DependentUpon>MapMark.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gMapMarker\MapMark.aspx.designer.cs">
+      <DependentUpon>MapMark.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gMapMarker\MarkList.aspx.cs">
+      <DependentUpon>MarkList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gMapMarker\MarkList.aspx.designer.cs">
+      <DependentUpon>MarkList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="gMapMarker\Presistent\BaseProvider.cs" />
+    <Compile Include="gMapMarker\Presistent\Base\MarkDB.cs" />
+    <Compile Include="gMapMarker\Presistent\Entities\MarkEntity.cs" />
+    <Compile Include="gMapMarker\Presistent\PMapDBDataProvider.cs" />
+    <Compile Include="gMapMarker\Presistent\StaticFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

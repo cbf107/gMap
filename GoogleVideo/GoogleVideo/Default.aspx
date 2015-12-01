@@ -2,13 +2,15 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html>
- <head>
- </head>
- <body>
-  shabi
-    
-
-
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+    傻逼，把文件放这里
+    </div>
+    </form>
+</body>
 </html>
