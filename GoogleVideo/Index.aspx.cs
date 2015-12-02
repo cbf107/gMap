@@ -84,7 +84,7 @@ namespace GoogleVideo
             InfoTitle.InnerText = markEntity.MarkName;
             InfoTitle.Attributes.Add("title", markEntity.MarkCommentA);
 
-            DoScript("$('#showWindow').modal('show');");
+            DoScript("$('#showWindow').modal('show').css({width:'auto','margin-left': function () {return -($(this).width() / 2);}});;");
         }
 
         protected void BtnDeleteVedio_Click(object sender, EventArgs e)

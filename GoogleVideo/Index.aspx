@@ -14,7 +14,11 @@
      
 
     <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }     
+      html, body { height: 100%; margin: 0; padding: 0; }    
+      
+      .modal-lg {
+        width: 900px;
+      } 
     </style>
 
     <script language="javascript" type="text/javascript">
@@ -146,6 +150,7 @@
                 local.search(text);
             }
         }
+
     </script>
 </head>
 <body>
@@ -213,7 +218,7 @@
                             TextMode="MultiLine"></asp:TextBox>
                     </td>
                 </tr>
-                <tr>
+                <tr style="display:none;">
                     <td colspan="2">
                         <asp:TextBox ID="txtTags" runat="server" placeholder="标签" Width="430"></asp:TextBox>
                     </td>
@@ -237,16 +242,24 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <!--视频展示面板start-->
-            <div id="showWindow" class="modal hide fade" style="width:900px" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
-                <div id="InfoTitle" runat="server" style="padding-left: 15px; padding-top: 5px;">
-                </div>
-                <div id="InfoPanel" runat="server" style="padding: 15px; text-align:center;">
-                </div>
-                <div class="modal-footer">                    
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                </div>
-            </div>
+
+            <div id="showWindow" class="modal fade">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div id="InfoTitle" class="modal-header" runat="server">
+    
+                  </div>
+                  <div id="InfoPanel" runat="server" style="padding-left:10px;">
+
+                  </div>
+                  <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
             <div style="display: none;">
                 <asp:TextBox ID="txtRefId" runat="server"></asp:TextBox>
                 <asp:Button ID="BtnLoadVedio" runat="server" Text="BtnLoadVedio" OnClick="BtnLoadVedio_Click" />  
