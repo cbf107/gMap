@@ -76,9 +76,11 @@ namespace GoogleVideo
         protected void BtnLoadVedio_Click(object sender, EventArgs e)
         {
             string RefId = txtRefId.Text;
-
+            
             MarkEntity markEntity = StaticFactory.markDB.Get<MarkEntity>(new Guid(RefId));
-            InfoPanel.InnerHtml = markEntity.MarkCommentB;
+
+
+            InfoPanel.InnerHtml = "<iframe height='486' width='865' src=\"" + markEntity.MarkCommentB + "\"frameborder=0 allowfullscreen></iframe>";
             InfoTitle.InnerText = markEntity.MarkName;
             InfoTitle.Attributes.Add("title", markEntity.MarkCommentA);
 

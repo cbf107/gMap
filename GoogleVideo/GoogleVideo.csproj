@@ -81,8 +81,10 @@
     <Content Include="Default.aspx" />
     <Content Include="gMapMarker\MapMark.aspx" />
     <Content Include="gMapMarker\MarkList.aspx" />
+    <Content Include="Img\CameraMarker.png" />
     <Content Include="Img\Logo.png" />
     <Content Include="Img\search.png" />
+    <Content Include="Img\VideoMarker.png" />
     <Content Include="Index.aspx" />
     <Content Include="lib\bootstrap\css\bootstrap-responsive.css" />
     <Content Include="lib\bootstrap\css\bootstrap-responsive.min.css" />

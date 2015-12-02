@@ -23,7 +23,6 @@ G:\80 External Docs\VideoInMap\GoogleVideo\GoogleVideo\obj\Debug\GoogleVideo.dll
 G:\80 External Docs\VideoInMap\GoogleVideo\GoogleVideo\obj\Debug\GoogleVideo.pdb
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\bin\GoogleVideo.dll
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\bin\GoogleVideo.pdb
-G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\obj\Debug\GoogleVideo.csprojResolveAssemblyReference.cache
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\obj\Debug\GoogleVideo.dll
 G:\80 External Docs\GoogleVideo\GMap\GoogleVideo\obj\Debug\GoogleVideo.pdb
 H:\GMap\GMap\GoogleVideo\bin\GoogleVideo.dll

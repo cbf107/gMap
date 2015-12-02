@@ -16,14 +16,8 @@ namespace gMapMark.gMapMark.Presistent.Base
 
         public List<MarkEntity> GetListByZoomLevel(int zoomLevel)
         {
-            dbDataObjectProvider.SqlStr = "Select * From " + TableName + " where zoomLevel=@zoomLevel";
-
-            dbDataObjectProvider.Params.Clear();
-            dbDataObjectProvider.InitParams();
-
-            dbDataObjectProvider.GenerateParameter("@zoomLevel", DbType.Int16, zoomLevel, false);
-           
-
+            dbDataObjectProvider.SqlStr = "Select * From " + TableName + " ";
+                        
             return dbDataObjectProvider.Query<MarkEntity>(DataProvider.InvokeType.SQL);
         }
 

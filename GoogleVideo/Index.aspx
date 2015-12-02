@@ -1,7 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="GoogleVideo.Index" %>
 
-
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
@@ -10,10 +8,10 @@
     <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
-    
-    
+     
     <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q">
     </script>
+     
 
     <style type="text/css">
       html, body { height: 100%; margin: 0; padding: 0; }     
@@ -25,6 +23,9 @@
         var mLatLng;
         var markers = [];
 
+        var videoIcon = new BMap.Icon("Img/VideoMarker.png", new BMap.Size(22, 31));
+        var cameraIcon = new BMap.Icon("Img/CameraMarker.png", new BMap.Size(22, 31));
+
         //显示录入视频面板
         function showIPanel(p) {
 
@@ -33,6 +34,17 @@
             $("#txtZoomLevel").val(zoomLevel);
             $("#coordinateInfo").html("<b>经度：</b>" + p.lng + "<br/>" + "<b>纬度：</b>" + p.lat + "<br/>")
 
+            
+            var gCoder = new BMap.Geocoder();
+            gCoder.getLocation(p, function (rs) {
+                var addComp = rs.addressComponents;
+
+                if (addComp.province == addComp.city)
+                    centreAddress = addComp.province + addComp.district + addComp.street;
+                else
+                    centreAddress = addComp.province + addComp.city + addComp.district + addComp.street;
+                $("#txtMarkName").val(centreAddress);
+            });
             $('#myModal').modal("show");
         }
 
@@ -57,14 +69,20 @@
                     for (var i = 0; i < objlist.length; i++) {
 
                         mLatLng = new BMap.Point(objlist[i].Longitude, objlist[i].Latitude);
-                        var marker = new BMap.Marker(mLatLng, {title: objlist[i].MarkName });
-                        marker.refId=objlist[i].RefId,
+
+                        var marker;
+                        if (objlist[i].MarkType != "视频")
+                            marker = new BMap.Marker(mLatLng, { icon: cameraIcon });
+                        else
+                            marker = new BMap.Marker(mLatLng, { icon: videoIcon });
+
+                        marker.refId = objlist[i].RefId,
                         //单击mark点后加载视频（这里用updatepanel触发页面隐藏按钮BtnLoadVedio，服务端刷新展示面板中的视频连接)
 
                         marker.addEventListener('click',
-                            function (e) {                                
+                            function (e) {
                                 $("#txtRefId").val(e.target.refId);
-                                document.getElementById("BtnLoadVedio").click();                                
+                                document.getElementById("BtnLoadVedio").click();
                             }
                         );
 
@@ -78,8 +96,7 @@
 
         function clearMarkers() {
             for (var i = 0; i < markers.length; i++) {
-                Map.removeOverlay(markers[i]); 
-              
+                Map.removeOverlay(markers[i]);               
             }
         }
      
@@ -92,8 +109,11 @@
 
             //这里将来替换成后台读取（可配置在字典中）
             //中心点
-            Map = new BMap.Map("map");          // 创建地图实例  
-            var point = new BMap.Point(116.404, 39.915);  // 创建点坐标  
+            Map = new BMap.Map("map", { enableMapClick: false });          // 创建地图实例  
+            Map.addControl(new BMap.NavigationControl());
+            Map.addControl(new BMap.ScaleControl());
+            Map.enableScrollWheelZoom();
+            var point = new BMap.Point(104.897328, 38.986703);  // 创建点坐标  
 
             Map.centerAndZoom(point, 5);       // 初始化地图，设置中心点坐标和地图级别  
             
@@ -106,14 +126,25 @@
             //加载点
             RefreshMap(zoomLevel);
 
-
-            //地图显示等级变换后触发事件
             Map.addEventListener('zoomend', function () {
                 zoomLevel = Map.getZoom();
-               
                 RefreshMap(zoomLevel);
             });
 
+        }
+
+        function SearchPosition() {
+            if (event.keyCode == 13) {
+                var text = $("#txtSearch").val();
+                var local = new BMap.LocalSearch(
+                    Map, {
+                        renderOptions: { map: Map },
+                        onMarkersSet: function (pois) {
+                            Map.clearOverlays();                            
+                        }
+                    });
+                local.search(text);
+            }
         }
     </script>
 </head>
@@ -132,8 +163,8 @@
                                     <img src="Img/search.png" alt="Search" style="height: 32px; width: 32px" />
                                 </a>
                             </td>
-                            <td valign="middle" style="vertical-align: middle; padding-top: 5px; padding-left: 10px;">
-                                <input type="text" style="width: 350px;" />
+                            <td valign="middle"  style="vertical-align: middle; padding-top: 5px; padding-left: 10px;">
+                                <input type="text" id="txtSearch" style="width: 350px;" onkeydown="SearchPosition()" />
                             </td>
                         </tr>
                     </table>
@@ -142,18 +173,12 @@
         </table>
     </div>
 
-    <div class="row-fluid">
-        <div id="map" class="span10" style="bottom:30px;top:80px;margin-left:10px;position:absolute;">
-        </div>
-        <div id="extPanel" class="span2" style="right:10px;top:80px;bottom:30px;position: absolute;" runat="server">
+
+    <div id="map" style="bottom:0px;top:80px; right:200px; left:0px; position:absolute; border-right: 1px solid silver; border-top: 1px solid silver;">
+    </div>
+    <div id="extPanel" style="right:0px;top:80px;bottom:0px;position: absolute; width:200px; padding-left:30px; border-top: 1px solid silver;" runat="server">
         
-        </div>
     </div>
-
-    <div class="span12" style="bottom:10px;position:absolute;text-align:center;">
-        About
-    </div>
-
     <form id="form1" runat="server">
     <!--添加视频面板start-->
     <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -202,8 +227,7 @@
         </div>
         <div class="modal-footer">
             <asp:Button ID="BtnSave" runat="server" Text="保存确定" CssClass="btn" OnClick="BtnSave_Click" />
-            <button class="btn" data-dismiss="modal" aria-hidden="true">
-                关闭</button>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
         </div>
     </div>
     <!--添加视频面板end-->
@@ -213,14 +237,13 @@
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <!--视频展示面板start-->
-            <div id="showWindow" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            <div id="showWindow" class="modal hide fade" style="width:900px" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                 aria-hidden="true">
                 <div id="InfoTitle" runat="server" style="padding-left: 15px; padding-top: 5px;">
                 </div>
-                <div id="InfoPanel" runat="server" style="padding: 15px;">
+                <div id="InfoPanel" runat="server" style="padding: 15px; text-align:center;">
                 </div>
-                <div class="modal-footer">
-                    <asp:Button ID="BtnDeleteVedio" runat="server" Text="删除" OnClick="BtnDeleteVedio_Click" OnClientClick="return confirm('确定删除坐标视频?');" CssClass="btn" />
+                <div class="modal-footer">                    
                     <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>
@@ -230,8 +253,6 @@
             </div>
             <!--视频展示面板end-->
         </ContentTemplate>
-
-
     </asp:UpdatePanel>
     </form>
 
@@ -240,7 +261,7 @@
 </body>
 </html>
 
-<script>
+<script type="text/javascript">
     initMap();
 </script>
 
