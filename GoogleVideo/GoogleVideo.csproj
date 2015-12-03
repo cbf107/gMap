@@ -82,6 +82,8 @@
     <Content Include="gMapMarker\MapMark.aspx" />
     <Content Include="gMapMarker\MarkList.aspx" />
     <Content Include="Img\CameraMarker.png" />
+    <Content Include="Img\center_top.png" />
+    <Content Include="Img\clock.png" />
     <Content Include="Img\Logo.png" />
     <Content Include="Img\search.png" />
     <Content Include="Img\VideoMarker.png" />

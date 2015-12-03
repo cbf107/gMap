@@ -21,27 +21,6 @@ namespace GoogleVideo
             user.UserID = "Test";
             Session["User"] = user;
 
-            List<MarkEntity> L = StaticFactory.markDB.GetTopListByCreateDate(10);
-            for (int i = 0; i < L.Count; i++)
-            {
-                HtmlGenericControl div = new HtmlGenericControl("div");
-
-                HtmlGenericControl spanA = new HtmlGenericControl("span");
-                spanA.Attributes.Add("class", "icon-map-marker");
-
-                HtmlGenericControl spanB = new HtmlGenericControl("span");
-                spanB.Attributes.Add("style", "padding-left:20px;");
-                spanB.InnerText = L[i].MarkName;
-
-                div.Controls.Add(spanA);
-                div.Controls.Add(spanB);
-
-                div.Attributes.Add("zoomLevel", L[i].zoomLevel.ToString());
-                div.Attributes.Add("title", L[i].MarkCommentA);
-
-
-                extPanel.Controls.Add(div);
-            }
         }
 
         protected void BtnSave_Click(object sender, EventArgs e)
@@ -65,6 +44,9 @@ namespace GoogleVideo
             if (StaticFactory.markDB.Add(markEntity))
             {
                 DoScript("RefreshMap(" + markEntity.zoomLevel.ToString() + ");");
+                txtMarkCommentB.Text = "";
+                txtMarkCommentA.Text = "";
+                txtMarkName.Text = "";
             }
         }
 

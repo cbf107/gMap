@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title></title>
+    <title>视频搜索</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
@@ -187,10 +187,53 @@
     </div>
 
 
-    <div id="map" style="bottom:0px;top:80px; right:200px; left:0px; position:absolute; border-right: 1px solid silver; border-top: 1px solid silver;">
+    <div id="map" style="bottom:0px;top:80px; right:250px; left:0px; position:absolute; border-right: 1px solid silver; border-top: 1px solid silver;">
     </div>
-    <div id="extPanel" style="right:0px;top:80px;bottom:0px;position: absolute; width:200px; padding-left:30px; border-top: 1px solid silver;" runat="server">
-        
+    <div id="extPanel" style="right:0px;top:80px;bottom:0px;position: absolute; width:250px; padding-left:30px; border-top: 1px solid silver;" runat="server">
+        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver; padding-left:5px;"
+            data-toggle="collapse" data-parent="#accordion" href="#collapseNewest" >
+            <table width="100%" >
+                <tr>
+                    <td style="width:20px">
+                        <img src="Img/clock.png" alt="clock" />
+                    </td>
+                    <td style="text-align:left; font-weight:bold">
+                        最新上传
+                    </td>
+                    <td style="width:20px">
+                        
+                    </td>
+                </tr>
+            </table>            
+        </div>
+        <div id="collapseNewest" class="panel-collapse collapse" style="width:100%;">
+            <div class="panel-body" style="padding:5px;">
+            敬请期待！
+            </div>
+        </div>
+
+        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver; padding-left:5px;"
+            data-toggle="collapse" data-parent="#accordion" href="#collapseTop" >
+            <table width="100%" >
+                <tr>
+                    <td style="width:20px">
+                        <img src="Img/center_top.png" alt="clock" />
+                    </td>
+                    <td style="text-align:left; font-weight:bold">
+                        播放最多
+                    </td>
+                    <td style="width:20px">
+                        
+                    </td>
+                </tr>
+            </table>            
+        </div>
+        <div id="collapseTop" class="panel-collapse collapse" style="width:100%;">
+            <div class="panel-body" style="padding:5px;">
+            敬请期待！
+            </div>
+        </div>
+
     </div>
     <form id="form1" runat="server">
     <!--添加视频面板start-->
@@ -211,19 +254,46 @@
                             <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
                         </div>
                     </td>
-                    <td style="width: 50%">
+                    <td style="padding:5px">
                         <asp:TextBox ID="txtMarkName" width="320px" runat="server" placeholder="名称"></asp:TextBox>
+                        <br />
+                        <asp:RequiredFieldValidator 
+                            ID="RFVMarkName" 
+                            runat="server"
+                            ForeColor="Red"
+                            ValidationGroup="Adding" 
+                            ControlToValidate="txtMarkName" 
+                            ErrorMessage="请输入名称！">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="padding:5px">
                         <asp:TextBox ID="txtMarkCommentA" width="320px" runat="server" placeholder="简介" TextMode="MultiLine"></asp:TextBox>
+                        <br />
+                        <asp:RequiredFieldValidator 
+                            ID="RFVCommentA" 
+                            runat="server"
+                            ForeColor="Red" 
+                            ValidationGroup="Adding" 
+                            ControlToValidate="txtMarkCommentA" 
+                            ErrorMessage="请输入简介！">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td>
+                    <td style="padding:5px">
                         <asp:TextBox ID="txtMarkCommentB" width="320px" runat="server" placeholder="链接代码（来自视频网站[如:优酷])"
                             TextMode="MultiLine"></asp:TextBox>
+                        <br />
+                        <asp:RequiredFieldValidator 
+                            ID="RFVCommentB" 
+                            runat="server"
+                            ForeColor="Red" 
+                            ValidationGroup="Adding" 
+                            ControlToValidate="txtMarkCommentB" 
+                            ErrorMessage="请粘贴链接！">
+                        </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr style="display:none;">
@@ -240,7 +310,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <asp:Button ID="BtnSave" runat="server" Text="保存确定" CssClass="btn" OnClick="BtnSave_Click" />
+            <asp:Button ID="BtnSave" runat="server" Text="保存确定" CssClass="btn" ValidationGroup="Adding" OnClick="BtnSave_Click" />
             <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
         </div>
     </div>

@@ -49,6 +49,15 @@ namespace GoogleVideo {
         protected global::System.Web.UI.WebControls.TextBox txtMarkName;
         
         /// <summary>
+        /// RFVMarkName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVMarkName;
+        
+        /// <summary>
         /// txtMarkCommentA control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace GoogleVideo {
         protected global::System.Web.UI.WebControls.TextBox txtMarkCommentA;
         
         /// <summary>
+        /// RFVCommentA control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVCommentA;
+        
+        /// <summary>
         /// txtMarkCommentB control.
         /// </summary>
         /// <remarks>
@@ -65,6 +83,15 @@ namespace GoogleVideo {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMarkCommentB;
+        
+        /// <summary>
+        /// RFVCommentB control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVCommentB;
         
         /// <summary>
         /// txtTags control.
