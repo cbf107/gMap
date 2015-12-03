@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -38,11 +38,9 @@
             $("#txtZoomLevel").val(zoomLevel);
             $("#coordinateInfo").html("<b>经度：</b>" + p.lng + "<br/>" + "<b>纬度：</b>" + p.lat + "<br/>")
 
-            
             var gCoder = new BMap.Geocoder();
             gCoder.getLocation(p, function (rs) {
                 var addComp = rs.addressComponents;
-
                 if (addComp.province == addComp.city)
                     centreAddress = addComp.province + addComp.district + addComp.street;
                 else
@@ -50,6 +48,18 @@
                 $("#txtMarkName").val(centreAddress);
             });
             $('#myModal').modal("show");
+        }
+
+        function addCameraView(p) {
+            $("#myModalLabel").text("添加直播");
+            $("#txtAddingType").val("直播");
+            showIPanel(p);
+        }
+
+        function addVideoView(p) {
+            $("#myModalLabel").text("添加视频");
+            $("#txtAddingType").val("视频");
+            showIPanel(p);
         }
 
 
@@ -110,9 +120,6 @@
         //初始加载地图
         function initMap() {
       
-
-            //这里将来替换成后台读取（可配置在字典中）
-            //中心点
             Map = new BMap.Map("map", { enableMapClick: false });          // 创建地图实例  
             Map.addControl(new BMap.NavigationControl());
             Map.addControl(new BMap.ScaleControl());
@@ -120,11 +127,12 @@
             var point = new BMap.Point(104.897328, 38.986703);  // 创建点坐标  
 
             Map.centerAndZoom(point, 5);       // 初始化地图，设置中心点坐标和地图级别  
-            
+
 
             var contextMenu = new BMap.ContextMenu();
-            contextMenu.addItem(new BMap.MenuItem("<span class='icon-film'></span>&nbsp;&nbsp;插入视频", showIPanel, 150));
-            contextMenu.addItem(new BMap.MenuItem("<span class='icon-facetime-video'></span>&nbsp;&nbsp;插入直播", showIPanel, 150));
+
+            contextMenu.addItem(new BMap.MenuItem("<span class='icon-film'></span>&nbsp;&nbsp;添加视频", addVideoView, 150));
+            contextMenu.addItem(new BMap.MenuItem("<span class='icon-facetime-video'></span>&nbsp;&nbsp;添加直播", addCameraView, 150));
             Map.addContextMenu(contextMenu);
       
             //加载点
@@ -155,7 +163,7 @@
 </head>
 <body>
      <div class="row">
-        <table style="height: 100%; width: 100%">
+        <table style="height: 100%; width: 100%; " >
             <tr>
                 <td valign="middle" style="padding-left: 20px; width: 320px;">
                     <img src="Img/Logo.png" alt="Logo" />
@@ -186,35 +194,35 @@
     </div>
     <form id="form1" runat="server">
     <!--添加视频面板start-->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
         aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                 ×</button>
-            <h3 id="myModalLabel">
-                插入视频</h3>
+            <h3 id="myModalLabel"></h3>
+
         </div>
         <div class="modal-body">
             <table>
                 <tr>
-                    <td rowspan="3" style="width: 50%; vertical-align: top; padding-top: 10px;">
+                    <td rowspan="3" style="width: 30%; vertical-align: top; padding-top: 10px;">
                         <div>
                             <span class="icon-map-marker"></span><span style="padding-left: 20px;">坐标信息</span></div>
-                        <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
+                            <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
                         </div>
                     </td>
                     <td style="width: 50%">
-                        <asp:TextBox ID="txtMarkName" runat="server" placeholder="视频名称"></asp:TextBox>
+                        <asp:TextBox ID="txtMarkName" width="320px" runat="server" placeholder="名称"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:TextBox ID="txtMarkCommentA" runat="server" placeholder="视频简介" TextMode="MultiLine"></asp:TextBox>
+                        <asp:TextBox ID="txtMarkCommentA" width="320px" runat="server" placeholder="简介" TextMode="MultiLine"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:TextBox ID="txtMarkCommentB" runat="server" placeholder="视频代码（来自视频网站[如:优酷])"
+                        <asp:TextBox ID="txtMarkCommentB" width="320px" runat="server" placeholder="链接代码（来自视频网站[如:优酷])"
                             TextMode="MultiLine"></asp:TextBox>
                     </td>
                 </tr>
@@ -228,6 +236,7 @@
                 <asp:TextBox ID="txtLongitude" runat="server"></asp:TextBox>
                 <asp:TextBox ID="txtLatitude" runat="server"></asp:TextBox>
                 <asp:TextBox ID="txtZoomLevel" runat="server"></asp:TextBox>
+                <asp:TextBox ID="txtAddingType" runat="server"></asp:TextBox>
             </div>
         </div>
         <div class="modal-footer">
@@ -268,9 +277,7 @@
         </ContentTemplate>
     </asp:UpdatePanel>
     </form>
-
-
-
+    
 </body>
 </html>
 

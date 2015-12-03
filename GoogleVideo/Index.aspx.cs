@@ -51,7 +51,7 @@ namespace GoogleVideo
             markEntity.MarkName = txtMarkName.Text;
             markEntity.MarkCommentA = txtMarkCommentA.Text;
             markEntity.MarkCommentB = txtMarkCommentB.Text;
-            markEntity.MarkType = "视频";
+            markEntity.MarkType = txtAddingType.Text;
             markEntity.UserId = userEntity.UserID;
             markEntity.CreateDate = DateTime.Now.ToString("yyy-MM-dd HH:mm：ss");
             markEntity.VisitCount = 0;
