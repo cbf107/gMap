@@ -8,19 +8,14 @@
     <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
-     
     <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q">
     </script>
-     
-
     <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }    
-      
-      .modal-lg {
-        width: 900px;
-      } 
+        .modal-lg
+        {
+            width: 900px;
+        }
     </style>
-
     <script language="javascript" type="text/javascript">
         var Map;
         var zoomLevel = 5;
@@ -65,8 +60,6 @@
 
         //刷新地图加载点（zLevel是缩放等级数）
         function RefreshMap(zLevel) {
-
-
             //清除地图上的现有点
             clearMarkers();
             markers = [];
@@ -74,7 +67,7 @@
             if (zLevel != -1) {
                 zoomLevel = zLevel;
             }
-          
+
             //后台读取需要加载点（后台当前访问数据库，后期要处理为缓存模式）
             $.get("gMapMarker/MarkList.aspx?zoomLevel=" + zoomLevel,
                 function (data, status) {
@@ -110,16 +103,16 @@
 
         function clearMarkers() {
             for (var i = 0; i < markers.length; i++) {
-                Map.removeOverlay(markers[i]);               
+                Map.removeOverlay(markers[i]);
             }
         }
      
     </script>
     <script type="text/javascript" language="javascript">
-        
+
         //初始加载地图
         function initMap() {
-      
+
             Map = new BMap.Map("map", { enableMapClick: false });          // 创建地图实例  
             Map.addControl(new BMap.NavigationControl());
             Map.addControl(new BMap.ScaleControl());
@@ -134,7 +127,7 @@
             contextMenu.addItem(new BMap.MenuItem("<span class='icon-film'></span>&nbsp;&nbsp;添加视频", addVideoView, 150));
             contextMenu.addItem(new BMap.MenuItem("<span class='icon-facetime-video'></span>&nbsp;&nbsp;添加直播", addCameraView, 150));
             Map.addContextMenu(contextMenu);
-      
+
             //加载点
             RefreshMap(zoomLevel);
 
@@ -152,7 +145,7 @@
                     Map, {
                         renderOptions: { map: Map },
                         onMarkersSet: function (pois) {
-                            Map.clearOverlays();                            
+                            Map.clearOverlays();
                         }
                     });
                 local.search(text);
@@ -161,9 +154,9 @@
 
     </script>
 </head>
-<body>
-     <div class="row">
-        <table style="height: 100%; width: 100%; " >
+<body style="position: absolute; right: 0; left: 0; top: 0; bottom: 0;">
+    <div style="top: 0; left: 0; right: 0; height: 80px; position: absolute;">
+        <table style="height: 100%; width: 100%;">
             <tr>
                 <td valign="middle" style="padding-left: 20px; width: 320px;">
                     <img src="Img/Logo.png" alt="Logo" />
@@ -176,7 +169,7 @@
                                     <img src="Img/search.png" alt="Search" style="height: 32px; width: 32px" />
                                 </a>
                             </td>
-                            <td valign="middle"  style="vertical-align: middle; padding-top: 5px; padding-left: 10px;">
+                            <td valign="middle" style="vertical-align: middle; padding-top: 5px; padding-left: 10px;">
                                 <input type="text" id="txtSearch" style="width: 350px;" onkeydown="SearchPosition()" />
                             </td>
                         </tr>
@@ -185,34 +178,33 @@
             </tr>
         </table>
     </div>
-
-
-    <div id="map" style="bottom:0px;top:80px; right:250px; left:0px; position:absolute; border-right: 1px solid silver; border-top: 1px solid silver;">
+    <div id="map" style="bottom: 0px; top: 80px; right: 250px; left: 0px; position: absolute;
+        border-right: 1px solid silver; border-top: 1px solid silver;">
     </div>
-    <div id="extPanel" style="right:0px;top:80px;bottom:0px;position: absolute; width:250px; padding-left:30px; border-top: 1px solid silver;" runat="server">
-        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver; padding-left:5px;"
-            data-toggle="collapse" data-parent="#accordion" href="#collapseNewest" >
-            <table width="100%" >
+    <div id="extPanel" style="right: 0px; top: 80px; bottom: 0px; position: absolute;
+        width: 250px; border-top: 1px solid silver;" runat="server">
+        <div style="height: 24px; cursor: pointer; text-align: center; font-size: 12px; width: 100%;
+            background-color: #FCFCFC; border-bottom: 1px solid silver;"
+            data-toggle="collapse" data-parent="#accordion" href="#collapseNewest">
+            <table width="100%">
                 <tr>
-                    <td style="width:20px">
+                    <td style="width: 20px">
                         <img src="Img/clock.png" alt="clock" />
                     </td>
-                    <td style="text-align:left; font-weight:bold">
+                    <td style="text-align: left; font-weight: bold">
                         最新上传
                     </td>
-                    <td style="width:20px">
-                        
+                    <td style="width: 20px">
                     </td>
                 </tr>
-            </table>            
+            </table>
         </div>
-        <div id="collapseNewest" class="panel-collapse collapse" style="width:100%;">
-            <div class="panel-body" style="padding:5px;">
-            敬请期待！
+        <div id="collapseNewest" class="panel-collapse collapse" style="width: 100%;">
+            <div class="panel-body" style="margin:5px;">
+                敬请期待！
             </div>
         </div>
-
-        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver; padding-left:5px;"
+        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver;"
             data-toggle="collapse" data-parent="#accordion" href="#collapseTop" >
             <table width="100%" >
                 <tr>
@@ -229,21 +221,20 @@
             </table>            
         </div>
         <div id="collapseTop" class="panel-collapse collapse" style="width:100%;">
-            <div class="panel-body" style="padding:5px;">
+            <div class="panel-body" style="margin:5px" >
             敬请期待！
             </div>
         </div>
-
     </div>
     <form id="form1" runat="server">
     <!--添加视频面板start-->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" 
+    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
         aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                 ×</button>
-            <h3 id="myModalLabel"></h3>
-
+            <h3 id="myModalLabel">
+            </h3>
         </div>
         <div class="modal-body">
             <table>
@@ -251,52 +242,37 @@
                     <td rowspan="3" style="width: 30%; vertical-align: top; padding-top: 10px;">
                         <div>
                             <span class="icon-map-marker"></span><span style="padding-left: 20px;">坐标信息</span></div>
-                            <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
+                        <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
                         </div>
                     </td>
-                    <td style="padding:5px">
-                        <asp:TextBox ID="txtMarkName" width="320px" runat="server" placeholder="名称"></asp:TextBox>
+                    <td style="padding: 5px">
+                        <asp:TextBox ID="txtMarkName" Width="320px" runat="server" placeholder="名称"></asp:TextBox>
                         <br />
-                        <asp:RequiredFieldValidator 
-                            ID="RFVMarkName" 
-                            runat="server"
-                            ForeColor="Red"
-                            ValidationGroup="Adding" 
-                            ControlToValidate="txtMarkName" 
-                            ErrorMessage="请输入名称！">
+                        <asp:RequiredFieldValidator ID="RFVMarkName" runat="server" ForeColor="Red" ValidationGroup="Adding"
+                            ControlToValidate="txtMarkName" ErrorMessage="请输入名称！">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding:5px">
-                        <asp:TextBox ID="txtMarkCommentA" width="320px" runat="server" placeholder="简介" TextMode="MultiLine"></asp:TextBox>
+                    <td style="padding: 5px">
+                        <asp:TextBox ID="txtMarkCommentA" Width="320px" runat="server" placeholder="简介" TextMode="MultiLine"></asp:TextBox>
                         <br />
-                        <asp:RequiredFieldValidator 
-                            ID="RFVCommentA" 
-                            runat="server"
-                            ForeColor="Red" 
-                            ValidationGroup="Adding" 
-                            ControlToValidate="txtMarkCommentA" 
-                            ErrorMessage="请输入简介！">
+                        <asp:RequiredFieldValidator ID="RFVCommentA" runat="server" ForeColor="Red" ValidationGroup="Adding"
+                            ControlToValidate="txtMarkCommentA" ErrorMessage="请输入简介！">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding:5px">
-                        <asp:TextBox ID="txtMarkCommentB" width="320px" runat="server" placeholder="链接代码（来自视频网站[如:优酷])"
+                    <td style="padding: 5px">
+                        <asp:TextBox ID="txtMarkCommentB" Width="320px" runat="server" placeholder="链接代码（来自视频网站[如:优酷])"
                             TextMode="MultiLine"></asp:TextBox>
                         <br />
-                        <asp:RequiredFieldValidator 
-                            ID="RFVCommentB" 
-                            runat="server"
-                            ForeColor="Red" 
-                            ValidationGroup="Adding" 
-                            ControlToValidate="txtMarkCommentB" 
-                            ErrorMessage="请粘贴链接！">
+                        <asp:RequiredFieldValidator ID="RFVCommentB" runat="server" ForeColor="Red" ValidationGroup="Adding"
+                            ControlToValidate="txtMarkCommentB" ErrorMessage="请粘贴链接！">
                         </asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <tr style="display:none;">
+                <tr style="display: none;">
                     <td colspan="2">
                         <asp:TextBox ID="txtTags" runat="server" placeholder="标签" Width="430"></asp:TextBox>
                     </td>
@@ -310,48 +286,45 @@
             </div>
         </div>
         <div class="modal-footer">
-            <asp:Button ID="BtnSave" runat="server" Text="保存确定" CssClass="btn" ValidationGroup="Adding" OnClick="BtnSave_Click" />
-            <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+            <asp:Button ID="BtnSave" runat="server" Text="保存确定" CssClass="btn" ValidationGroup="Adding"
+                OnClick="BtnSave_Click" />
+            <button class="btn" data-dismiss="modal" aria-hidden="true">
+                关闭</button>
         </div>
     </div>
     <!--添加视频面板end-->
-
     <asp:ScriptManager ID="ScriptManager1" runat="server">
     </asp:ScriptManager>
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
             <!--视频展示面板start-->
-
             <div id="showWindow" class="modal fade">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div id="InfoTitle" class="modal-header" runat="server">
-    
-                  </div>
-                  <div id="InfoPanel" runat="server" style="padding-left:10px;">
-
-                  </div>
-                  <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
-
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div id="InfoTitle" class="modal-header" runat="server">
+                        </div>
+                        <div id="InfoPanel" runat="server" style="text-align:center;">
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">
+                                关闭</button>
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+            <!-- /.modal -->
             <div style="display: none;">
                 <asp:TextBox ID="txtRefId" runat="server"></asp:TextBox>
-                <asp:Button ID="BtnLoadVedio" runat="server" Text="BtnLoadVedio" OnClick="BtnLoadVedio_Click" />  
+                <asp:Button ID="BtnLoadVedio" runat="server" Text="BtnLoadVedio" OnClick="BtnLoadVedio_Click" />
             </div>
             <!--视频展示面板end-->
         </ContentTemplate>
     </asp:UpdatePanel>
     </form>
-    
 </body>
 </html>
-
 <script type="text/javascript">
     initMap();
 </script>
-
