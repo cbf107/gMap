@@ -131,10 +131,10 @@
             //加载点
             RefreshMap(zoomLevel);
 
-            Map.addEventListener('zoomend', function () {
-                zoomLevel = Map.getZoom();
-                RefreshMap(zoomLevel);
-            });
+//            Map.addEventListener('zoomend', function () {
+//                zoomLevel = Map.getZoom();
+//                RefreshMap(zoomLevel);
+//            });
 
         }
 
@@ -146,6 +146,8 @@
                         renderOptions: { map: Map },
                         onMarkersSet: function (pois) {
                             Map.clearOverlays();
+                            zoomLevel = Map.getZoom();
+                            RefreshMap(zoomLevel);
                         }
                     });
                 local.search(text);
