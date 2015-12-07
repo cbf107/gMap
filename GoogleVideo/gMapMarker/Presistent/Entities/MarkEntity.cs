@@ -13,9 +13,9 @@ namespace gMapMark.gMapMark.Presistent.Entities
         public string MarkCommentB { get; set; }
         public string MarkType { get; set; }
         public string UserId { get; set; }
-        //public DateTime CreateDate { get; set; }
+        public DateTime CreateDate { get; set; }
         //For Access
-        public string CreateDate { get; set; }
+        //public string CreateDate { get; set; }
         public decimal VisitCount { get; set; }
         public decimal PraiseCount { get; set; }
         public string Longitude { get; set; }

@@ -17,6 +17,7 @@ namespace GoogleVideo
         UserEntity userEntity { get { return (UserEntity)Session["User"]; } }
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             UserEntity user = new UserEntity();
             user.UserID = "Test";
             Session["User"] = user;
@@ -32,7 +33,7 @@ namespace GoogleVideo
             markEntity.MarkCommentB = txtMarkCommentB.Text;
             markEntity.MarkType = txtAddingType.Text;
             markEntity.UserId = userEntity.UserID;
-            markEntity.CreateDate = DateTime.Now.ToString("yyy-MM-dd HH:mm：ss");
+            markEntity.CreateDate = DateTime.Now;//.ToString("yyy-MM-dd HH:mm：ss");
             markEntity.VisitCount = 0;
             markEntity.PraiseCount = 0;
             markEntity.Latitude = txtLatitude.Text;

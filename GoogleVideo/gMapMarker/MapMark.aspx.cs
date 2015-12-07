@@ -30,7 +30,7 @@ namespace gMapMark.gMapMark
             markEntity.MarkCommentB = txtMarkCommentB.Text;
             markEntity.MarkType = "视频";
             markEntity.UserId = userEntity.UserID;
-            markEntity.CreateDate = DateTime.Now.ToString("yyy-MM-dd HH:mm：ss");
+            markEntity.CreateDate = DateTime.Now;//.ToString("yyy-MM-dd HH:mm：ss");
             markEntity.VisitCount = 0;
             markEntity.PraiseCount = 0;
             markEntity.Latitude=txtLatitude.Text;
