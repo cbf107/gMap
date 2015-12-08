@@ -30,6 +30,11 @@ namespace gMapMark.gMapMark.Presistent.Base
 
             return dbDataObjectProvider.Query<MarkEntity>(DataProvider.InvokeType.SQL);
         }
+
+        public MarkEntity GetVisitingMarker(Guid identifier) {
+            dbDataObjectProvider.SqlStr = "EXEC GetMarkbyIdentifier '" + identifier.ToString() + "'";
+            return dbDataObjectProvider.Query<MarkEntity>(DataProvider.InvokeType.SQL)[0];
+        }
        
     }
 }

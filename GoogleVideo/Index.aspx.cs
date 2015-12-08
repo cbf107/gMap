@@ -60,7 +60,8 @@ namespace GoogleVideo
         {
             string RefId = txtRefId.Text;
             
-            MarkEntity markEntity = StaticFactory.markDB.Get<MarkEntity>(new Guid(RefId));
+            //MarkEntity markEntity = StaticFactory.markDB.Get<MarkEntity>(new Guid(RefId));
+            MarkEntity markEntity = StaticFactory.markDB.GetVisitingMarker(new Guid(RefId));
 
 
             InfoPanel.InnerHtml = "<iframe height='486' width='865' src=\"" + markEntity.MarkCommentB + "\"frameborder=0 allowfullscreen></iframe>";
