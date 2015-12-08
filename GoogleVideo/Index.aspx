@@ -7,9 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="screen" rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="lib/bootstrap/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="Scripts/jquery.timeago.js"  ></script>
     <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q">
-    </script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q"></script>
+    <script src="jqwidgets/jqx-all.js" type="text/javascript"></script>
+    <script src="Scripts/LocalizationJqwidgets.js" type="text/javascript"></script>
+    <link href="jqwidgets/styles/jqx.base.css" rel="stylesheet" type="text/css" />
+    <link href="jqwidgets/styles/jqx-gmap.css" rel="stylesheet" type="text/css" />
+    
     <style type="text/css">
         .modal-lg
         {
@@ -202,11 +207,11 @@
             </table>
         </div>
         <div id="collapseNewest" class="panel-collapse collapse" style="width: 100%;">
-            <div class="panel-body" style="margin:5px;">
+            <div class="panel-body" id="divNewest" style="margin:5px; width:235px">
                 敬请期待！
             </div>
         </div>
-        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver;"
+        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver; border-top: 1px solid silver;"
             data-toggle="collapse" data-parent="#accordion" href="#collapseTop" >
             <table width="100%" >
                 <tr>
@@ -223,7 +228,7 @@
             </table>            
         </div>
         <div id="collapseTop" class="panel-collapse collapse" style="width:100%;">
-            <div class="panel-body" style="margin:5px" >
+            <div class="panel-body" id="divRanking" style="margin:5px" >
             敬请期待！
             </div>
         </div>
@@ -265,7 +270,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding: 5px">
+                    <td  style="padding: 5px">
                         <asp:TextBox ID="txtMarkCommentB" Width="320px" runat="server" placeholder="链接代码（来自视频网站[如:优酷])"
                             TextMode="MultiLine"></asp:TextBox>
                         <br />
@@ -275,7 +280,7 @@
                     </td>
                 </tr>
                 <tr style="display: none;">
-                    <td colspan="2">
+                    <td colspan="2"  >
                         <asp:TextBox ID="txtTags" runat="server" placeholder="标签" Width="430"></asp:TextBox>
                     </td>
                 </tr>
@@ -293,6 +298,7 @@
             <button class="btn" data-dismiss="modal" aria-hidden="true">
                 关闭</button>
         </div>
+        
     </div>
     <!--添加视频面板end-->
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -329,4 +335,9 @@
 </html>
 <script type="text/javascript">
     initMap();
+</script>
+
+<script type="text/javascript" src="Scripts/RankingAjax.js" >
+    
+
 </script>

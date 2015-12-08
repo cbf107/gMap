@@ -1,0 +1,157 @@
+﻿.jqx-widget-content-GMap
+    {
+        border-color:Silver;
+    }
+.jqx-fill-state-normal-GMap, .jqx-widget-header-GMap
+    {
+        border-color:Silver; 
+        
+    }
+.jqx-fill-state-hover-GMap
+    {
+        border-color:Silver;  
+        background-color:#cfdde9
+    }
+.jqx-fill-state-pressed-GMap
+    {
+        border-color:Silver; 
+        background-color:#cfdde9
+    }
+.jqx-fill-state-focus-GMap 
+    { 
+        border-color: Silver; 
+    }
+.jqx-scrollbar-state-normal-GMap, .jqx-grid-bottomright-GMap, .jqx-panel-bottomright-GMap, .jqx-listbox-bottomright-GMap
+    {
+        /*background-color:#e0e9f5*/
+    }
+.jqx-widget-GMap .jqx-grid-column-header-GMap, .jqx-grid-cell-GMap, .jqx-widget-GMap .jqx-grid-cell-GMap, .jqx-widget-GMap .jqx-grid-group-cell-GMap, .jqx-grid-group-cell-GMap
+    {
+        border-color:Silver
+    }
+.jqx-tabs-title-selected-bottom-GMap, .jqx-tabs-selection-tracker-bottom-GMap, .jqx-tabs-title-selected-top-GMap, .jqx-tabs-selection-tracker-top-GMap
+    {
+        border-color:Silver; 
+        border-bottom:1px solid #fff; 
+        /*background:#fff*/
+    }
+.jqx-grid-cell-sort-alt-GMap, .jqx-grid-cell-filter-alt-GMap, .jqx-grid-cell-pinned-GMap, .jqx-grid-cell-alt-GMap, .jqx-grid-cell-sort-GMap
+    { 
+        background-color:#FCFCFC;
+    }
+.jqx-grid-cell-selected-GMap
+    { 
+        background-color:#cfdde9 !important;  
+        color:#2b465e !important;
+        
+    }
+.jqx-grid-cell-hover-GMap
+    { 
+        background-color:#cfdde9 !important;
+    }
+.jqx-menu-vertical-GMap
+    {
+        /*background: #e0e9f5;*/
+    }
+    
+.jqx-widget-header-GMap, .jqx-grid-GMap .jqx-widget-header-GMap
+{
+  color: Black;
+  border-color:Silver;
+  background-color: #F6F6F6;
+  font-family: 宋体;
+  
+}
+
+.jqx-cell-GMap
+{
+    height:15px;
+    padding-top:2px;
+    padding-bottom:2px;
+}
+
+.jqx-grid-column-header-GMap
+{
+    font-weight:bold;
+    text-align:center;
+}
+
+.jqx-dropdownlist-state-normal-GMap
+{
+    background-color:White;
+    border: 1px solid silver;
+    height: 15px;
+}
+
+.jqx-tooltip-GMap, .jqx-tooltip-main-GMap
+{
+    border-color:Silver;
+    background-color: #FAFAFA;
+}
+
+.jqx-fill-state-normal-GMap
+{
+    border-color:Silver;
+    background-color: #FAFAFA;
+}
+
+
+
+.jqx-menu-item-disabled-GMap
+{
+    color:Silver;    
+}
+
+.jqx-menu-GMap
+{
+    background-color: transparent;
+    border:0;
+}
+
+.jqx-menu-item-top-GMap
+{
+    width:70px;
+    height:20px;
+    padding-left:30px;
+}
+
+.jqx-menu-item-top-hover-GMap
+{
+    background-color:transparent;
+    border:0;
+}
+
+.jqx-menu-item-top-selected-GMap
+{
+    background-color:transparent;
+    border:0;
+}
+
+.jqx-menu-item-hover-GMap
+{
+    background-color:#FAFAFA;
+}
+
+
+.NoBoard 
+{
+  color: Black;
+  border-width: 0px !important;
+  border-style:none !important;
+  border-color:transparent !important;
+  border: 0px none transparent !important;
+  font-family: 宋体 !important;
+  font-size: 12px !important;
+  cursor: pointer;
+}
+
+.jqx-widget-NoBoard
+{
+  color: Black;
+  border-width: 0px !important;
+  border-style:none !important;
+  border-color:transparent !important;
+  border: 0px none transparent !important;
+  font-family: 宋体 !important;
+  font-size: 12px !important;  
+}

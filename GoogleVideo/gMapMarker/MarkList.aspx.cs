@@ -39,7 +39,6 @@ namespace gMapMark.gMapMark
 
                 if (sb.ToString().LastIndexOf(',') > 0)
                 {
-
                     sb.Remove(sb.ToString().LastIndexOf(','), 1);                    
                 }
                 sb.Append("]");                   
