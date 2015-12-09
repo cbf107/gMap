@@ -465,6 +465,7 @@
     <Content Include="lib\bootstrap\js\jquery.min.js" />
     <Content Include="Scripts\jquery.timeago.js" />
     <Content Include="Scripts\LocalizationJqwidgets.js" />
+    <Content Include="Scripts\RankingAjax.js" />
     <Content Include="Styles\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />

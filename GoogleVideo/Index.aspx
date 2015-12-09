@@ -7,14 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="screen" rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="lib/bootstrap/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="Scripts/jquery.timeago.js"  ></script>
+    <script type="text/javascript" src="Scripts/jquery.timeago.js"></script>
     <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q"></script>
     <script src="jqwidgets/jqx-all.js" type="text/javascript"></script>
     <script src="Scripts/LocalizationJqwidgets.js" type="text/javascript"></script>
     <link href="jqwidgets/styles/jqx.base.css" rel="stylesheet" type="text/css" />
     <link href="jqwidgets/styles/jqx-gmap.css" rel="stylesheet" type="text/css" />
-    
     <style type="text/css">
         .modal-lg
         {
@@ -136,10 +135,10 @@
             //加载点
             RefreshMap(zoomLevel);
 
-//            Map.addEventListener('zoomend', function () {
-//                zoomLevel = Map.getZoom();
-//                RefreshMap(zoomLevel);
-//            });
+            //            Map.addEventListener('zoomend', function () {
+            //                zoomLevel = Map.getZoom();
+            //                RefreshMap(zoomLevel);
+            //            });
 
         }
 
@@ -190,46 +189,41 @@
     </div>
     <div id="extPanel" style="right: 0px; top: 80px; bottom: 0px; position: absolute;
         width: 250px; border-top: 1px solid silver;" runat="server">
-        <div style="height: 24px; cursor: pointer; text-align: center; font-size: 12px; width: 100%;
-            background-color: #FCFCFC; border-bottom: 1px solid silver;"
-            data-toggle="collapse" data-parent="#accordion" href="#collapseNewest">
-            <table width="100%">
-                <tr>
-                    <td style="width: 20px">
-                        <img src="Img/clock.png" alt="clock" />
-                    </td>
-                    <td style="text-align: left; font-weight: bold">
-                        最新上传
-                    </td>
-                    <td style="width: 20px">
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div id="collapseNewest" class="panel-collapse collapse" style="width: 100%;">
-            <div class="panel-body" id="divNewest" style="margin:5px; width:235px">
-                敬请期待！
+        <div id="divAccordionNewest" style="border: 0">
+            <div style="height: 100%; text-align: center; font-size: 12px;">
+                <table>
+                    <tr>
+                        <td style="width: 20px">
+                            <img src="Img/clock.png" alt="clock" />
+                        </td>
+                        <td style="text-align: left; font-weight: bold">
+                            最新上传
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="collapseNewest" style="width: 245px;">
+                <div id="divNewest" style="margin: 5px; width: 100%">
+                    
+                </div>
             </div>
         </div>
-        <div style="height:24px; cursor:pointer; text-align:center; font-size:12px; width:100%;background-color:#FCFCFC; border-bottom: 1px solid silver; border-top: 1px solid silver;"
-            data-toggle="collapse" data-parent="#accordion" href="#collapseTop" >
-            <table width="100%" >
-                <tr>
-                    <td style="width:20px">
-                        <img src="Img/center_top.png" alt="clock" />
-                    </td>
-                    <td style="text-align:left; font-weight:bold">
-                        播放最多
-                    </td>
-                    <td style="width:20px">
-                        
-                    </td>
-                </tr>
-            </table>            
-        </div>
-        <div id="collapseTop" class="panel-collapse collapse" style="width:100%;">
-            <div class="panel-body" id="divRanking" style="margin:5px" >
-            敬请期待！
+        <div id="divAccordionRank" style="border: 0">
+            <div style="height: 100%; text-align: center; font-size: 12px;">
+                <table >
+                    <tr>
+                        <td style="width: 20px">
+                            <img src="Img/center_top.png" alt="clock" />
+                        </td>
+                        <td style="text-align: left; font-weight: bold">
+                            播放最多
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="collapseTop" style="width: 245px;">
+                <div id="divRanking" style="margin: 5px; width: 100%">
+                </div>
             </div>
         </div>
     </div>
@@ -270,7 +264,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td  style="padding: 5px">
+                    <td style="padding: 5px">
                         <asp:TextBox ID="txtMarkCommentB" Width="320px" runat="server" placeholder="链接代码（来自视频网站[如:优酷])"
                             TextMode="MultiLine"></asp:TextBox>
                         <br />
@@ -280,7 +274,7 @@
                     </td>
                 </tr>
                 <tr style="display: none;">
-                    <td colspan="2"  >
+                    <td colspan="2">
                         <asp:TextBox ID="txtTags" runat="server" placeholder="标签" Width="430"></asp:TextBox>
                     </td>
                 </tr>
@@ -298,7 +292,6 @@
             <button class="btn" data-dismiss="modal" aria-hidden="true">
                 关闭</button>
         </div>
-        
     </div>
     <!--添加视频面板end-->
     <asp:ScriptManager ID="ScriptManager1" runat="server">
@@ -311,7 +304,7 @@
                     <div class="modal-content">
                         <div id="InfoTitle" class="modal-header" runat="server">
                         </div>
-                        <div id="InfoPanel" runat="server" style="text-align:center;">
+                        <div id="InfoPanel" runat="server" style="text-align: center;">
                         </div>
                         <div class="modal-footer">
                             <button class="btn" data-dismiss="modal" aria-hidden="true">
@@ -335,9 +328,9 @@
 </html>
 <script type="text/javascript">
     initMap();
+
+    $("#divAccordionNewest").jqxExpander({ width: '100%', expanded: false, theme: "GMap" });
+    $("#divAccordionRank").jqxExpander({ width: '100%', expanded: false, theme: "GMap" });
 </script>
-
-<script type="text/javascript" src="Scripts/RankingAjax.js" >
-    
-
+<script type="text/javascript" src="Scripts/RankingAjax.js">
 </script>

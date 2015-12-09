@@ -60,10 +60,20 @@ function RenderRankingTable(contentID) {
 }
 
 
-$('#collapseNewest').on('show.bs.collapse', function () {
+$('#divAccordionNewest').on('expanding', function () {
     sortField = "CreateDate";
     var contentID = "divNewest";
     RenderRankingTable(contentID);
+    $('#divAccordionRank').jqxExpander({ collapseAnimationDuration: 0 });
+    $('#divAccordionRank').jqxExpander('collapse');
+})
+
+$('#divAccordionRank').on('expanding', function () {
+    sortField = "VisitCount";
+    var contentID = "divRanking";
+    RenderRankingTable(contentID);
+    $('#divAccordionNewest').jqxExpander({ collapseAnimationDuration: 0 });
+    $('#divAccordionNewest').jqxExpander('collapse');
 })
 
 function onRowSelected(event) {
@@ -79,9 +89,6 @@ function onRowSelected(event) {
     else Map.centerAndZoom(point, zoom);
     $("#txtRefId").val(row.Identifier);
     document.getElementById("BtnLoadVedio").click();
+
+    
 }
-$('#collapseTop').on('show.bs.collapse', function () {
-    sortField = "VisitCount";
-    var contentID = "divRanking";
-    RenderRankingTable(contentID);
-})
