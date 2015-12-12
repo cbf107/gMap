@@ -25,6 +25,7 @@
         var zoomLevel = 5;
         var mLatLng;
         var markers = [];
+        var editRight = false;
 
         var videoIcon = new BMap.Icon("Img/VideoMarker.png", new BMap.Size(22, 31));
         var cameraIcon = new BMap.Icon("Img/CameraMarker.png", new BMap.Size(22, 31));
@@ -130,7 +131,10 @@
 
             contextMenu.addItem(new BMap.MenuItem("<span class='icon-film'></span>&nbsp;&nbsp;添加视频", addVideoView, 150));
             contextMenu.addItem(new BMap.MenuItem("<span class='icon-facetime-video'></span>&nbsp;&nbsp;添加直播", addCameraView, 150));
-            Map.addContextMenu(contextMenu);
+          
+            if (editRight == true) {
+                Map.addContextMenu(contextMenu);
+            }
 
             //加载点
             RefreshMap(zoomLevel);
@@ -302,13 +306,16 @@
             <div id="showWindow" class="modal fade">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
+                        <div style="text-align:right;"><asp:Button ID="btnC" runat="server" Text="×" onclick="btnClose_Click" BackColor="White" BorderStyle=None  /></div>
                         <div id="InfoTitle" class="modal-header" runat="server">
                         </div>
                         <div id="InfoPanel" runat="server" style="text-align: center;">
                         </div>
                         <div class="modal-footer">
-                            <button class="btn" data-dismiss="modal" aria-hidden="true">
-                                关闭</button>
+                            <asp:Button ID="btnDelete" runat="server" Text="删除" CssClass="btn" 
+                                onclick="btnDelete_Click" OnClientClick="return confirm('删除后无法恢复！确定删除?');"/>
+                            &nbsp;&nbsp;
+                            <asp:Button ID="btnClose" runat="server" Text="关闭" onclick="btnClose_Click" CssClass="btn" />
                         </div>
                     </div>
                     <!-- /.modal-content -->

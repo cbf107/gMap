@@ -17,10 +17,28 @@ namespace GoogleVideo
         UserEntity userEntity { get { return (UserEntity)Session["User"]; } }
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            UserEntity user = new UserEntity();
-            user.UserID = "Test";
-            Session["User"] = user;
+            BtnSave.Enabled = false;
+            btnDelete.Enabled = false;
+
+            BtnSave.Visible = false;
+            btnDelete.Visible = false;
+            DoScript("editRight=false;");
+
+            if (userEntity != null) { 
+                if (userEntity.HasRight("EditVedio"))
+                {
+                    BtnSave.Enabled = true;
+                    btnDelete.Enabled = true;
+
+                    BtnSave.Visible = true;
+                    btnDelete.Visible = true;
+
+                    DoScript("editRight=true;");
+                }
+            }
+            //UserEntity user = new UserEntity();
+            //user.UserID = "Test";
+            //Session["User"] = user;
 
         }
 
@@ -71,7 +89,14 @@ namespace GoogleVideo
             DoScript("$('#showWindow').modal('show').css({width:'auto','margin-left': function () {return -($(this).width() / 2);}});;");
         }
 
-        protected void BtnDeleteVedio_Click(object sender, EventArgs e)
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            InfoPanel.InnerHtml = "";
+            DoScript("$('#showWindow').modal('hide');");
+            DoScript("RefreshMap(-1);");
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
             string RefId = txtRefId.Text;
             StaticFactory.markDB.Delete(new Guid(RefId));

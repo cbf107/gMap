@@ -1,288 +1,87 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="GoogleVideo.Default" ValidateRequest="false" %>
+﻿<%@ Page Language="C#" MasterPageFile="Controls/Main.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="BaseWebAppication.Default" Title="Untitled Page" %>
+<%@ MasterType VirtualPath="~/Controls/Main.Master" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link media="screen" rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css" />
-    <script type="text/javascript" src="/lib/bootstrap/js/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="/lib/bootstrap/js/bootstrap.min.js"></script>
-    
-    <style type="text/css">
-      html, body { height: 100%; margin: 0; padding: 0; }     
-    </style>
-
-    <script language="javascript" type="text/javascript">
-        var Map;
-        var zoomLevel = 3;
-        var mLatLng;
-        var markers = [];
-        var contextMenuObj;
-
-        //显示录入视频面板
-        function showIPanel() {
-            $('#myModal').modal("show");
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+<style type="text/css">
+       
+        .ShowPanel
+        {
+        	float:left;
+        	width:99%;
         }
-
-
-        //刷新地图加载点（zLevel是缩放等级数）
-        function RefreshMap(zLevel) {
-
-
-            //清除地图上的现有点
-            setMapOnAll(null);
-            markers = [];
-
-            if (zLevel != -1) {
-                zoomLevel = zLevel;
-            }
-
-            //后台读取需要加载点（后台当前访问数据库，后期要处理为缓存模式）
-            $.get("gMapMarker/MarkList.aspx?zoomLevel=" + zoomLevel,
-                function (data, status) {
-                    var objlist = jQuery.parseJSON(data);
-
-                    for (var i = 0; i < objlist.length; i++) {
-
-                        mLatLng = { lat: objlist[i].Latitude, lng: objlist[i].Longitude };
-
-                        var marker = new google.maps.Marker({
-                            refId: objlist[i].RefId,
-                            position: mLatLng,
-                            map: Map,
-                            title: objlist[i].MarkName
-                        });
-
-                        //单击mark点后加载视频（这里用updatepanel触发页面隐藏按钮BtnLoadVedio，服务端刷新展示面板中的视频连接)
-                        marker.addListener('click',
-                             function () {
-                                 $("#txtRefId").val(this.refId);
-                                 document.getElementById("BtnLoadVedio").click();
-                             }
-                        );
-
-                        //zoomLevel变化后用于清除
-                        markers.push(marker);
-                    } //for
-                }
-            );
-        }
-
-        function setMapOnAll(map) {
-            for (var i = 0; i < markers.length; i++) {
-                markers[i].setMap(map);
-            }
-        }
-
-        // Removes the markers from the map, but keeps them in the array.
-        function clearMarkers() {
-            setMapOnAll(null);
-        }
-     
-    </script>
-    <script type="text/javascript" language="javascript">
- 
-        //初始加载地图
-        function initMap() {
-            //右键菜单隐藏
-            contextMenuObj.hide();
-
-            //这里将来替换成后台读取（可配置在字典中）
-            //中心点
-            var tw = new google.maps.LatLng(35.60371874069731, 104.0625)
-            var myLatLng = { lat: 35.60371874069731, lng: 104.0625 };
-
-            Map = new google.maps.Map(document.getElementById('map'), {
-                zoom: zoomLevel,
-                center: myLatLng
-            });
-
-            //加载点
-            RefreshMap(zoomLevel);
-
-
-            //地图显示等级变换后触发事件
-            google.maps.event.addListener(Map, 'zoom_changed', function () {
-                //隐藏右键菜单
-                contextMenuObj.hide();
-
-                zoomLevel = Map.getZoom();
-
-                //设置中心点（这里待完善）
-                Map.setCenter(tw);
-
-                //alert('缩放级别: ' + zoomLevel);                
-
-                RefreshMap(zoomLevel);
-            });
-
-            //地图单击事件
-            google.maps.event.addListener(Map, 'click', function () {
-                contextMenuObj.hide();
-            });
-
-            //地图右键菜单事件
-            google.maps.event.addListener(Map, 'rightclick', function (event) {
-                var mapDiv = $(Map.getDiv()),
-                x = event.pixel.x,
-                y = event.pixel.y;
-
-                // save the clicked location
-                clickedLatLng = event.latLng;
-
-                $("#contextMenu").css({ left: x, top: y });
-
-                $("#txtLongitude").val(event.latLng.lng());
-                $("#txtLatitude").val(event.latLng.lat());
-                $("#txtZoomLevel").val(zoomLevel);
-                $("#coordinateInfo").html("<b>经度：</b>" + event.latLng.lng() + "<br/>" + "<b>纬度：</b>" + event.latLng.lat() + "<br/>")
-                
-                contextMenuObj.show();
-
-                //
-                /*
-                if (confirm("插入视频?")) {
-                alert(event.latLng);
-                alert(event.latLng.lat());
-                alert(event.latLng.lng());
-                }
-                */
-            });
-
-
-        }
-    </script>
-</head>
-<body>
-     <div class="row">
-        <table style="height: 100%; width: 100%">
-            <tr>
-                <td valign="middle" style="padding-left: 20px; width: 320px;">
-                    <img src="Img/Logo.png" alt="Logo" />
-                </td>
-                <td valign="bottom" align="left">
-                    <table style="height: 40px">
-                        <tr>
-                            <td>
-                                <a href="#">
-                                    <img src="Img/search.png" alt="Search" style="height: 32px; width: 32px" />
-                                </a>
-                            </td>
-                            <td valign="middle" style="vertical-align: middle; padding-top: 5px; padding-left: 10px;">
-                                <input type="text" style="width: 350px;" />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
-
-    <div class="row-fluid">
-        <div id="map" class="span10" style="bottom:30px;top:80px;margin-left:10px;position:absolute;">
-        </div>
-        <div id="extPanel" class="span2" style="right:10px;top:80px;bottom:30px;position: absolute;" runat="server">
         
-        </div>
+        .LoginPanel
+        {
+        	float:left;
+        	width:420px;
+        	FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#ffffff,endColorStr=#EEF4F8);    
+            height:120px;
+            padding-top:40px;
+            padding-bottom:10px;
+            margin-top:50px;
+            margin-left:100px;
+            border:1px solid #D1E4F0;
+            font-size:12px;
+        }     
+        
+               .spanTitle
+        {
+    	    width:130px; 
+    	    display:block;
+    	    float:left;
+            text-align:right;
+            padding-right:5px;
+            color:#003366;
+            font-size:13px;
+        }
+        
+        .spanTxt
+        {
+    	    width:190px; 
+    	    float:left;
+    	    display:block;
+        }
+        
+        .spanTxt input
+        {
+    	    border:1px solid #F9FBFC;
+    	    color:Red;
+    	    background-color:#F9FBFC;
+    	    border-bottom:1px solid #cccccc;
+    	    width:200px;
+        }
+        
+        .divrow
+        {
+            clear:both;	
+            text-align:left;            
+            margin-left:15px;
+            height:30px;
+                 
+        }
+</style>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div style="clear:both;height:400px;text-align:center;">
+            <div style="float:left;">
+                <img src="Images/show.png" alt="预览" />                
+            </div>      
+            <div>
+                <div id="LoginPanel" runat="server" class="LoginPanel">            
+                            <div class="divrow">
+                                <span class="spanTitle">用户名 :</span><span class="spanTxt"><asp:TextBox ID="txtUserID" runat="server" Text=""></asp:TextBox></span>
+                            </div>
+                            <div class="divrow">
+                                <span class="spanTitle">密码 :</span><span class="spanTxt"><asp:TextBox ID="txtPassword" runat="server" TextMode="Password" Text=""></asp:TextBox></span>
+                            </div>
+                            <div class="divrow" style="text-align:right; padding-right:50px;">                            
+                                <asp:Button ID="BtnLogin" runat="server" Text="登录" onclick="BtnLogin_Click" />                                                        
+                            </div>
+		        </div>
+		        <div id="LoginSuccess" runat="server" class="LoginPanel" style="display:none;">
+		            登录 成功!&nbsp;&nbsp;&nbsp;&nbsp;<a href="Manage/Nar.aspx" style="color:#000000;">进入</a>
+		            <asp:Button ID="BtnExit" runat="server" Text="退出系统" OnClick="BtnExit_Click" />
+		        </div>
+		  </div>              
     </div>
-
-    <div class="span12" style="bottom:10px;position:absolute;text-align:center;">
-        About
-    </div>
-
-    <form id="form1" runat="server">
-    <!--添加视频面板start-->
-    <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                ×</button>
-            <h3 id="myModalLabel">
-                插入视频</h3>
-        </div>
-        <div class="modal-body">
-            <table>
-                <tr>
-                    <td rowspan="3" style="width: 50%; vertical-align: top; padding-top: 10px;">
-                        <div>
-                            <span class="icon-map-marker"></span><span style="padding-left: 20px;">坐标信息</span></div>
-                        <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
-                        </div>
-                    </td>
-                    <td style="width: 50%">
-                        <asp:TextBox ID="txtMarkName" runat="server" placeholder="视频名称"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:TextBox ID="txtMarkCommentA" runat="server" placeholder="视频简介" TextMode="MultiLine"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:TextBox ID="txtMarkCommentB" runat="server" placeholder="视频代码（来自视频网站[如:优酷])"
-                            TextMode="MultiLine"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <asp:TextBox ID="txtTags" runat="server" placeholder="标签" Width="430"></asp:TextBox>
-                    </td>
-                </tr>
-            </table>
-            <div style="display: none;">
-                <asp:TextBox ID="txtLongitude" runat="server"></asp:TextBox>
-                <asp:TextBox ID="txtLatitude" runat="server"></asp:TextBox>
-                <asp:TextBox ID="txtZoomLevel" runat="server"></asp:TextBox>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <asp:Button ID="BtnSave" runat="server" Text="保存确定" CssClass="btn" OnClick="BtnSave_Click" />
-            <button class="btn" data-dismiss="modal" aria-hidden="true">
-                关闭</button>
-        </div>
-    </div>
-    <!--添加视频面板end-->
-
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
-    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-        <ContentTemplate>
-            <!--视频展示面板start-->
-            <div id="showWindow" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true">
-                <div id="InfoTitle" runat="server" style="padding-left: 15px; padding-top: 5px;">
-                </div>
-                <div id="InfoPanel" runat="server" style="padding: 15px;">
-                </div>
-                <div class="modal-footer">
-                    <asp:Button ID="BtnDeleteVedio" runat="server" Text="删除" OnClick="BtnDeleteVedio_Click" OnClientClick="return confirm('确定删除坐标视频?');" CssClass="btn" />
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
-                </div>
-            </div>
-            <div style="display: none;">
-                <asp:TextBox ID="txtRefId" runat="server"></asp:TextBox>
-                <asp:Button ID="BtnLoadVedio" runat="server" Text="BtnLoadVedio" OnClick="BtnLoadVedio_Click" />  
-            </div>
-            <!--视频展示面板end-->
-        </ContentTemplate>
-
-
-    </asp:UpdatePanel>
-    </form>
-
-    <div id="contextMenu" style="width:130px;left:0;top:0; position:absolute; z-index:1000; background-color:#fff;">
-        <table class="table table-bordered">
-            <tr><td><span class="icon-film"></span><a style="cursor:pointer;padding-left:10px;" onclick="showIPanel();">插入视频标记</a></td></tr>
-            <tr><td><span class="icon-facetime-video"></span><a style="cursor:pointer;padding-left:10px;" onclick="showIPanel();">插入直播标记</a></td></tr>
-        </table>
-    </div>
-
-</body>
-</html>
-<script type="text/javascript" async defer src="http://ditu.google.cn/maps/api/js?v=3&key=AIzaSyA4qSVZhJS4F-hPDu2J6Fm0kz-mqCQzmRs &callback=initMap">
-</script>
-<script>
-    contextMenuObj = $('#contextMenu');
-</script>
+</asp:Content>
