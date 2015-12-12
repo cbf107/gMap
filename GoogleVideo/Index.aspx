@@ -32,7 +32,7 @@
 
         //显示录入视频面板
         function showIPanel(p) {
-
+                    
             $("#txtLongitude").val(p.lng);
             $("#txtLatitude").val(p.lat);
             $("#txtZoomLevel").val(zoomLevel);
@@ -111,7 +111,14 @@
                 Map.removeOverlay(markers[i]);
             }
         }
-     
+
+        function showWindowClose() {
+            $('#showWindow').modal('hide');
+            $('div.modal-backdrop').click();
+
+            RefreshMap(-1);
+            //$("div").css("class", "modal-backdrop fade in");
+        }
     </script>
     <script type="text/javascript" language="javascript">
 

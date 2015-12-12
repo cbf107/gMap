@@ -44,28 +44,31 @@ namespace GoogleVideo
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            MarkEntity markEntity = new MarkEntity();
-            markEntity.RefId = markEntity.CreateID();
-            markEntity.MarkName = txtMarkName.Text;
-            markEntity.MarkCommentA = txtMarkCommentA.Text;
-            markEntity.MarkCommentB = txtMarkCommentB.Text;
-            markEntity.MarkType = txtAddingType.Text;
-            markEntity.UserId = userEntity.UserID;
-            markEntity.CreateDate = DateTime.Now;//.ToString("yyy-MM-dd HH:mm：ss");
-            markEntity.VisitCount = 0;
-            markEntity.PraiseCount = 0;
-            markEntity.Latitude = txtLatitude.Text;
-            markEntity.Longitude = txtLongitude.Text;
-            markEntity.zoomLevel = Convert.ToInt16(txtZoomLevel.Text);
-            markEntity.rightRank = 0;
-            markEntity.Tag = txtTags.Text;
-
-            if (StaticFactory.markDB.Add(markEntity))
+            if (IsPostBack)
             {
-                DoScript("RefreshMap(" + markEntity.zoomLevel.ToString() + ");");
-                txtMarkCommentB.Text = "";
-                txtMarkCommentA.Text = "";
-                txtMarkName.Text = "";
+                MarkEntity markEntity = new MarkEntity();
+                markEntity.RefId = markEntity.CreateID();
+                markEntity.MarkName = txtMarkName.Text;
+                markEntity.MarkCommentA = txtMarkCommentA.Text;
+                markEntity.MarkCommentB = txtMarkCommentB.Text;
+                markEntity.MarkType = txtAddingType.Text;
+                markEntity.UserId = userEntity.UserID;
+                markEntity.CreateDate = DateTime.Now;//.ToString("yyy-MM-dd HH:mm：ss");
+                markEntity.VisitCount = 0;
+                markEntity.PraiseCount = 0;
+                markEntity.Latitude = txtLatitude.Text;
+                markEntity.Longitude = txtLongitude.Text;
+                markEntity.zoomLevel = Convert.ToInt16(txtZoomLevel.Text);
+                markEntity.rightRank = 0;
+                markEntity.Tag = txtTags.Text;
+
+                if (StaticFactory.markDB.Add(markEntity))
+                {
+                    DoScript("RefreshMap(" + markEntity.zoomLevel.ToString() + ");");
+                    txtMarkCommentB.Text = "";
+                    txtMarkCommentA.Text = "";
+                    txtMarkName.Text = "";
+                }
             }
         }
 
@@ -92,16 +95,15 @@ namespace GoogleVideo
         protected void btnClose_Click(object sender, EventArgs e)
         {
             InfoPanel.InnerHtml = "";
-            DoScript("$('#showWindow').modal('hide');");
-            DoScript("RefreshMap(-1);");
+            DoScript("showWindowClose();");
+          
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             string RefId = txtRefId.Text;
             StaticFactory.markDB.Delete(new Guid(RefId));
-            DoScript("$('#showWindow').modal('hide');");
-            DoScript("RefreshMap(-1);");
+            DoScript("showWindowClose();");
         }
     }
 }
