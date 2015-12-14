@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
-    <title>视频搜索</title>
+    <title>千美千寻</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="screen" rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="lib/bootstrap/js/jquery-1.11.3.min.js"></script>
@@ -32,7 +32,7 @@
 
         //显示录入视频面板
         function showIPanel(p) {
-                    
+            $("#txtRefId").val("00000000-0000-0000-0000-000000000000");
             $("#txtLongitude").val(p.lng);
             $("#txtLatitude").val(p.lat);
             $("#txtZoomLevel").val(zoomLevel);
@@ -257,7 +257,7 @@
                         <div id="coordinateInfo" style="padding-top: 10px; text-align: left;">
                         </div>
                     </td>
-                    <td style="padding: 5px">
+                    <td style="padding: 5px">                        
                         <asp:TextBox ID="txtMarkName" Width="320px" runat="server" placeholder="名称"></asp:TextBox>
                         <br />
                         <asp:RequiredFieldValidator ID="RFVMarkName" runat="server" ForeColor="Red" ValidationGroup="Adding"

@@ -44,10 +44,13 @@ namespace GoogleVideo
 
         protected void BtnSave_Click(object sender, EventArgs e)
         {
-            if (IsPostBack)
+            if (txtRefId.Text == "00000000-0000-0000-0000-000000000000")
             {
+                Guid rd= Guid.NewGuid();
+                txtRefId.Text =rd.ToString();
+
                 MarkEntity markEntity = new MarkEntity();
-                markEntity.RefId = markEntity.CreateID();
+                markEntity.RefId = rd;
                 markEntity.MarkName = txtMarkName.Text;
                 markEntity.MarkCommentA = txtMarkCommentA.Text;
                 markEntity.MarkCommentB = txtMarkCommentB.Text;
