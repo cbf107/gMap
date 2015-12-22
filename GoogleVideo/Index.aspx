@@ -4,11 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
     <title>千美千寻</title>
+    <meta http-equiv-"X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link media="screen" rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css" />
     <script type="text/javascript" src="lib/bootstrap/js/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="Scripts/jquery.timeago.js"></script>
     <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="swfobject.js"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api? v=2.0& ak=PPNRpjICwsRNqOjU4aqrjr5q"></script>
     <script src="jqwidgets/jqx-all.js" type="text/javascript"></script>
     <script src="Scripts/LocalizationJqwidgets.js" type="text/javascript"></script>

@@ -9,6 +9,7 @@ using gMapMark.gMapMark.Presistent.Entities;
 using UMEntities;
 using gMapMark.gMapMark.Presistent;
 using System.Web.UI.HtmlControls;
+using System.Text;
 
 namespace GoogleVideo
 {
@@ -88,7 +89,58 @@ namespace GoogleVideo
             MarkEntity markEntity = StaticFactory.markDB.GetVisitingMarker(new Guid(RefId));
 
 
-            InfoPanel.InnerHtml = "<iframe height='486' width='865' src=\"" + markEntity.MarkCommentB + "\"frameborder=0 allowfullscreen></iframe>";
+            //InfoPanel.InnerHtml = "<iframe height='486' width='865' src=\"" + markEntity.MarkCommentB + "\"frameborder=0 allowfullscreen></iframe>";
+            /*
+            StringBuilder sb=new StringBuilder();
+            sb.Append("<video width=\"865\" height=\"486\" controls=\"controls\">");
+            sb.Append("<source src=\""+markEntity.MarkCommentB+"\" type=\"video/mp4\">");
+            sb.Append("</video>");
+            InfoPanel.InnerHtml = sb.ToString();
+            */
+
+            string ln=markEntity.MarkCommentB.Substring(markEntity.MarkCommentB.LastIndexOf(".") + 1, (markEntity.MarkCommentB.Length - markEntity.MarkCommentB.LastIndexOf(".") - 1));
+           
+            /*
+            if (ln == "flv")
+            {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<object classid=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0\" width=\"865\" height=\"486\">");
+                sb.Append("<param name=\"movie\" value=\"flvplayer.swf\" />");
+                sb.Append("<param name=\"quality\" value=\"high\" />");
+                sb.Append("<param name=\"allowFullScreen\" value=\"true\" />");
+                sb.Append("<param name=\"FlashVars\" value=\"vcastr_file=" + markEntity.MarkCommentB + "&LogoText=lhking&BufferTime=3\" />");
+                sb.Append("<param name=\"FlashVars\" value=\"vcastr_file=" + markEntity.MarkCommentB + "&LogoText=zst&BufferTime=3&IsAutoPlay=1\" />");
+                sb.Append("<embed src=\"flvplayer.swf\" allowfullscreen=\"true\" flashvars=\"vcastr_file=" + markEntity.MarkCommentB + "&LogoText=lhking\" quality=\"high\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"865\" height=\"486\"></embed>");
+                sb.Append("</object>");
+                InfoPanel.InnerHtml = sb.ToString();
+            }
+
+            if (ln == "mp4") {
+                StringBuilder sb = new StringBuilder();
+                sb.Append("<video width=\"865\" height=\"486\" controls=\"controls\">");
+                sb.Append("<source src=\"" + markEntity.MarkCommentB + "\" type=\"video/mp4\">");
+                sb.Append("您的浏览器不支持</video>");
+                InfoPanel.InnerHtml = sb.ToString();
+            }
+            */
+            StringBuilder sb = new StringBuilder();
+            //markEntity.MarkCommentB = "航模大师精彩献技.mp4";
+            sb.Append("<embed width=\"865\" height=\"486\" flashvars=\"videoDefault="+markEntity.MarkCommentB+"&autoHide=true");
+            sb.Append("&hideType=fade&autoStart=false&holdImage=start.jpg&startVol=60");
+            sb.Append("&hideDelay=60&bgAlpha=75\" salign=\"lt\"");
+            sb.Append(" wmode=\"opaque\" allowscriptaccess=\"always\"");
+            sb.Append(" allowfullscreen=\"true\" quality=\"high\"");
+            sb.Append(" bgcolor=\"#000000\" name=\"CuPlayerV4\"");
+            sb.Append(" id=\"CuPlayerV4\" src=\"PlayerLite.swf\"");
+            sb.Append(" type=\"application/x-shockwave-flash\">");
+            InfoPanel.InnerHtml = sb.ToString();
+            /*
+            else
+            {
+                InfoPanel.InnerHtml = "<iframe height='486' width='865' src=\"" + markEntity.MarkCommentB + "\"frameborder=0 allowfullscreen></iframe>";
+            }
+            */
+
             InfoTitle.InnerText = markEntity.MarkName;
             InfoTitle.Attributes.Add("title", markEntity.MarkCommentA);
 

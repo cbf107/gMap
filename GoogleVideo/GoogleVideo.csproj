@@ -118,6 +118,7 @@
     <Content Include="DataBase\UMS.mdb" />
     <Content Include="DataBase\UserMessage.mdb" />
     <Content Include="Default.aspx" />
+    <Content Include="Flvplayer.swf" />
     <Content Include="gMapMarker\MapMark.aspx" />
     <Content Include="gMapMarker\MarkList.aspx" />
     <Content Include="gMapMarker\RankList.aspx" />
@@ -861,6 +862,7 @@
     <Content Include="Menu\js\UvumiDropdown-compressed.js" />
     <Content Include="Menu\PublicMenu.ascx" />
     <Content Include="Menu\TopMenu.ascx" />
+    <Content Include="PlayerLite.swf" />
     <Content Include="Scripts\jquery.timeago.js" />
     <Content Include="Scripts\LocalizationJqwidgets.js" />
     <Content Include="Scripts\RankingAjax.js" />
@@ -869,6 +871,7 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="swfobject.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -939,6 +942,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Manage\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="航模大师精彩献技.mp4" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
