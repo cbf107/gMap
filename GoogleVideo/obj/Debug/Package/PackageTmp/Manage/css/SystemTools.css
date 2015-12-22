@@ -1,0 +1,64 @@
+﻿	body
+	{
+		font-size:smaller;
+		margin:0;
+		padding:0 0 0 0px;
+	}
+
+	a, a.inline:visited, a:visited, a:active
+	{
+		color: #52759d;
+	}
+
+	a:hover, a.inline:hover
+	{
+		color: #ff6600;
+
+	}
+
+	li
+	{
+	/*list-style-type: circle;*/
+	list-style-position:outside;
+	}
+	
+	.HideOrShow {
+        display:none;	
+	}
+	
+	.MenuPanel
+	{
+		margin-left:15px; 
+		padding-top:5px;	
+	}
+	
+	.FirstFloor
+	{
+		background-color:#CCDBEF;
+		color:#52759d;
+		border:solid 1px #dde5ed;
+		padding:3px;
+		cursor:pointer;
+		font-size:12px;			      
+	}
+	
+	.SecondFloor
+	{
+		/*margin-left:10px;*/
+		/*background-color:#F8FBFE;*/
+		color:#52759d;
+		/*border:solid 1px #dde5ed;*/
+		padding:3px;
+		margin-bottom:3px;	                 
+		font-size:12px;
+		cursor:pointer;
+	}
+	
+	.ThirdFloor
+	{
+		/*margin-left:20px;*/
+		/*background-color:#eef2f6;*/
+		color:#52759d;
+		/*border:solid 1px #dde5ed;*/		
+		padding:2px;               
+	}
